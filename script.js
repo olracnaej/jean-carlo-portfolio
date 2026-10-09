@@ -1,9 +1,9 @@
 const roles = [
-    "SOC Analyst",
-    "Cybersecurity Analyst",
-    "Threat Detection Enthusiast",
-    "Future Threat Researcher",
-    "Cloud Security Professional"
+    "Full Stack Web Developer",
+    "Computer Systems Engineering Student",
+    "Cloud & Cybersecurity Enthusiast",
+    "Data & BI Enthusiast",
+    "Bilingual Spanish-English Professional"
 ];
 
 const typingElement = document.querySelector(".typing");
@@ -13,13 +13,10 @@ let charIndex = 0;
 let deleting = false;
 
 function typeEffect() {
-
     const currentRole = roles[roleIndex];
 
     if (!deleting) {
-        typingElement.textContent =
-            currentRole.substring(0, charIndex + 1);
-
+        typingElement.textContent = currentRole.substring(0, charIndex + 1);
         charIndex++;
 
         if (charIndex === currentRole.length) {
@@ -28,19 +25,12 @@ function typeEffect() {
             return;
         }
     } else {
-
-        typingElement.textContent =
-            currentRole.substring(0, charIndex - 1);
-
+        typingElement.textContent = currentRole.substring(0, charIndex - 1);
         charIndex--;
 
         if (charIndex === 0) {
             deleting = false;
-            roleIndex++;
-
-            if (roleIndex >= roles.length) {
-                roleIndex = 0;
-            }
+            roleIndex = (roleIndex + 1) % roles.length;
         }
     }
 
@@ -50,21 +40,14 @@ function typeEffect() {
 typeEffect();
 
 const observer = new IntersectionObserver(entries => {
-
     entries.forEach(entry => {
-
-        if(entry.isIntersecting){
+        if (entry.isIntersecting) {
             entry.target.classList.add("show");
         }
-
     });
-
-});
+}, { threshold: 0.05 });
 
 document.querySelectorAll(".section").forEach(section => {
-
     section.classList.add("hidden");
-
     observer.observe(section);
-
 });
